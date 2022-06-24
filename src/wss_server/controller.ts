@@ -1,7 +1,8 @@
 import robot from "robotjs";
-import { moveDown, moveLeft, moveRight, moveUp } from "../robot/moveMouse";
 
+import { moveDown, moveLeft, moveRight, moveUp } from "../robot/moveMouse";
 import { rectunglePaint, circlePaint, squarePaint } from "../robot/paintFigure";
+import { makeScreen } from "../robot/screenShot";
 
 export const controller = (message: string) => {
   const [command, firstNum, secondNum] = message.split(" ");
@@ -34,6 +35,10 @@ export const controller = (message: string) => {
     case "draw_rectangle":
       rectunglePaint(firstArg, secondArg, mouseX, mouseY);
       break;
+    case "prnt_scrn":
+      // const result = await makeScreen(mouseX, mouseY, 200, 200);
+      // return result;
+      return makeScreen(mouseX, mouseY, 200, 200);
   }
 
   return command;

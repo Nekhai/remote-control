@@ -1,5 +1,3 @@
-import Jimp from "jimp";
-
 import { httpServer } from "./http_server/index";
 import { wssServer } from "./wss_server";
 
