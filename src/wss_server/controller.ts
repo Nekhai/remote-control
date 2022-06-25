@@ -36,8 +36,6 @@ export const controller = (message: string) => {
       rectunglePaint(firstArg, secondArg, mouseX, mouseY);
       break;
     case "prnt_scrn":
-      // const result = await makeScreen(mouseX, mouseY, 200, 200);
-      // return result;
       return makeScreen(mouseX, mouseY, 200, 200);
   }
 

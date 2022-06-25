@@ -1,20 +1,24 @@
-import { WebSocketServer } from "ws";
+import { createWebSocketStream, WebSocketServer } from "ws";
 import { controller } from "./controller";
 
-export const wssServer = () => {
+export const wsServer = () => {
   const wss = new WebSocketServer({ port: 8080 });
 
-  wss.on("connection", (connection) => {
-    connection.on("message", (message) => {
-      const command = controller(message.toString());
-      console.log(`I recive message ${message}`);
+  wss.on("connection", (socket) => {
+    console.log("client connected to ws server");
 
-      connection.send(command);
+    const duplex = createWebSocketStream(socket, { decodeStrings: false });
+
+    duplex.on("data", async (chunk) => {
+      const command = await controller(chunk.toString());
+
+      duplex.write(command);
     });
-    connection.send("Hello client");
+
+    wss.close();
   });
 
   wss.on("close", () => {
-    console.log("connection closed");
+    console.log("client disconnected from ws server");
   });
 };
