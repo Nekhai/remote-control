@@ -1,18 +1,20 @@
 import robot from "robotjs";
 import Jimp from "jimp";
 
-export const makeScreen = async (
+export const makeScreen = (
   mouseX: number,
   mouseY: number,
   width: number,
   height: number
 ) => {
-  const buffer = await robot.screen.capture(mouseX, mouseY, width, height)
-    .image;
+  const buffer = robot.screen.capture(
+    mouseX - 100,
+    mouseY - 100,
+    width,
+    height
+  ).image;
 
-  const result = await convertBuffer(buffer);
-
-  return result;
+  return convertBuffer(buffer);
 };
 
 const convertBuffer = async (screenBuffer: Buffer) => {
