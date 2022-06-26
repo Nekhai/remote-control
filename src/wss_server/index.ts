@@ -13,6 +13,8 @@ export const wsServer = () => {
     const duplex = createWebSocketStream(socket, { decodeStrings: false });
 
     duplex.on("data", async (chunk) => {
+      console.log(`${chunk}\0`);
+
       const command = await controller(chunk.toString());
 
       duplex.write(command);
