@@ -21,6 +21,11 @@ export const wsServer = () => {
     wss.close();
   });
 
+  process.on("SIGINT", () => {
+    wss.close();
+    process.exit(0);
+  });
+
   wss.on("close", () => {
     console.log("client disconnected from ws server");
   });
